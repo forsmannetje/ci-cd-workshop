@@ -148,14 +148,16 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-jar
+          path: app-jar
 
-      - name: Setup (JDK + Gradle + cache)
-        uses: ./.github/actions/setup-java-gradle
-
-      - name: Ensure Gradle wrapper is executable
-        run: chmod +x ./gradlew
+      - name: List downloaded JARs (debug)
+        run: |
+          echo "Searching for JAR in artifact..."
+          find app-jar -type f -name "*.jar" -print | sed -n '1,200p'
 
       - name: Login to GHCR (alleen op main)
         if: github.ref == 'refs/heads/main'
@@ -165,9 +167,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build container image (Paketo)
+      - name: Setup pack CLI
+        uses: buildpacks/pack-action@v5
+
+      - name: Build container image from JAR (Paketo)
         env:
-          # Help buildpacks pick the correct JDK/JRE version
           BP_JVM_VERSION: "21.*"
         run: |
           # Ensure the bootable jar exists so the "executable-jar" buildpack path can be used
