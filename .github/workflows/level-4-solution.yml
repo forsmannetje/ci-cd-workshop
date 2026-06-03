@@ -1,12 +1,16 @@
 #############################################
 # Level 4 — Toad's Treasure House (SOLUTION)
 #
-# Bouwt de JAR en uploadt deze als artifact.
+# Bouwt de JAR en uploadt deze als artifact met een naam die de gebruiker kan opgeven.
 #############################################
 name: Level 4 - Toad's Treasure House (Solution)
-
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      artifact_name:
+        description: 'Name of the artifact to upload (e.g. app-jar, demo-artifact)'
+        required: false
+        default: app-jar
 
 jobs:
   artifact:
@@ -30,5 +34,5 @@ jobs:
       - name: Upload artifact (JAR)
         uses: actions/upload-artifact@v4
         with:
-          name: app-jar
+          name: ${{ github.event.inputs.artifact_name || 'app-jar' }}
           path: build/libs/*.jar

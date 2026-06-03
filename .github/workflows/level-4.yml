@@ -7,6 +7,7 @@
 # Daadwerkelijk leerdoel:
 # - Een build artifact (JAR) produceren
 # - Dit artifact uploaden als GitHub Actions artifact
+# - Build parameters gebruiken om de artifact naam te bepalen
 #############################################
 name: Level 4 - Toad's Treasure House
 
@@ -33,9 +34,6 @@ jobs:
       - name: Build (maak de schat)
         run: ./gradlew build
 
-      - name: Upload artifact (bewaar in schatkist)
-        # TODO: Kies het juiste pad naar je JAR (hint: build/libs/*.jar)
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-jar
-          path: build/libs/*.jar
+#TODO: upload the jar as build artifact,
+# as a bonus feature make it so that you can set the artifact name when kicking of the build
+# (hint: use the workflow_dispatch inputs)

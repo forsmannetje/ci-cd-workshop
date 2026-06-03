@@ -6,7 +6,7 @@
 # - Meerdere jobs met duidelijke verantwoordelijkheden
 # - Gedeelde setup via composite action .github/actions/setup-java-gradle
 # - Correcte permissies en conditionele push naar GHCR
-# - Concurrency
+# - A not ideal (but anyway) an example of Concurrency
 #############################################
 name: Level 7 - Star Road (Solution)
 
