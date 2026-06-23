@@ -1,7 +1,7 @@
 name: Level 2 - Koopa's Fortress
 
 on:
-  workflow_dispatch: {}
+  push: {}
 
 jobs:
   test:
