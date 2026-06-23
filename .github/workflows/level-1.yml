@@ -1,7 +1,7 @@
 name: Level 1 - Yoshi's Island
 
 on:
-  workflow_dispatch: {} # TODO: Bonus opdracht, vervang door een echte trigger.
+  push: {}
 
 jobs:
   build:
@@ -11,8 +11,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v6
 
-        # TODO - Configureer JDK 21 - hint: wellicht ook iets met actions?
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
 
-        # TODO - Setup Gradle
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
-        # TODO - Run een gradle build command
+      - name: Run Gradle build
+        run: ./gradlew build
